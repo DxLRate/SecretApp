@@ -33,7 +33,8 @@ mongoose.connect("mongodb://localhost:27017/userDB");
 
 const userSchema = new mongoose.Schema({
     email: String,
-    password: String
+    password: String,
+    googleId: String
 });
 
 userSchema.plugin(passportLocalMongoose); 
@@ -57,23 +58,21 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/secrets"
   },
   function(accessToken, refreshToken, profile, cb) {
+   
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        
-      return cb(err, user);
-    });
+        return cb(err, user);
+      });
   }
 ));
 
-app.get("/", function(req, res){
-    res.render("home");
-});
 
-app.get('/auth/google',
+
+app.get("/auth/google",
   passport.authenticate('google', { scope: ["profile"] }
   
 ));
 
-app.get('/auth/google/secrets', 
+app.get("/auth/google/secrets", 
 passport.authenticate('google', { failureRedirect: '/login' }),
 function(req, res) {
   // Successful authentication, redirect home.
