@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
   googleId: String,
-  secret: [String]
+  secret: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -132,7 +132,7 @@ app.post("/submit", function(req, res){
       console.log(err);
     } else {
       if (foundUser) {
-        foundUser.secret.push(submittedSecret);
+        foundUser.secret = submittedSecret;
         foundUser.save(function(){
           res.redirect("/secrets");
         });
