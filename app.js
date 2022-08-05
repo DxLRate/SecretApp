@@ -29,7 +29,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://DxLR8:testsecret07@cluster0.sfm3wid.mongodb.net/userDB").then(()=>{
+mongoose.connect("mongodb+srv://DxLR8:testsecret07@cluster0.sfm3wid.mongodb.net/userDB",{
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+}).then(()=>{
   console.log("Connection successfull");
 }).catch((err)=>console.log("no connection"));
 
