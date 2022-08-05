@@ -29,15 +29,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://DxLR8:testsecret07@cluster0.sfm3wid.mongodb.net/userDB",{
+mongoose.connect("mongodb+srv://DxLR8:testsecret07@cluster0.fxlb2zl.mongodb.net/userDB",{
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
+  useUnifiedTopology: true
+  
 }).then(()=>{
   console.log("Connection successfull");
 }).catch((err)=>console.log("no connection"));
-
 
 const userSchema = new mongoose.Schema ({
   email: String,
